@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Awesome To Dos App</title>
+	<link rel="stylesheet" type="text/css" href="/application.css">
+</head>
+
+<body>
+	<h1>
+	These are my To-Dos
+	</h1>
+
+	<ul>
+		<% @to_dos.each do |to_do| %>
+		<li><%= to_do %></li>
+		<% end %>
+	</ul>
+	<form action="/to_dos" method="post">
+		<input type="text" id="description" name="description">
+		<input type="submit">
+	</form>
+</body>
+</html>
