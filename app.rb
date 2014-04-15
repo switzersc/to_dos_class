@@ -23,7 +23,8 @@ end
 
 post "/to_dos" do
 	@to_do = ToDo.new(params[:to_do])
-	if @to_do.save
+	if @to_do.meet_criteria?
+		@to_do.save
 		redirect "/to_dos/#{@to_do.id}"
 	else
 		redirect "/Error"
@@ -51,5 +52,7 @@ end
 
 
 class ToDo < ActiveRecord::Base
-
+	def meet_criteria?
+		## validations
+	end
 end

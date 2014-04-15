@@ -1,1 +1,6 @@
-<%= @to_do[:desciption] %>
+<%= @to_do.description %>
+
+<form action="/to_dos/<%= @to_do.id %>" method="post">
+  <input type="hidden" name="_method" value="delete" />
+  <input type="submit" value="Delete" />
+</form>
