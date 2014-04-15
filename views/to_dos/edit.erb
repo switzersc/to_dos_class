@@ -1,0 +1,6 @@
+<form action="/to_dos/<%= @to_do.id %>" method="post">
+		<input type="hidden" name="_method" value="put" /> 
+		<input type="text" id="to_do_description" name="to_do[description]" value="<%= @to_do.description %>">
+		<input type="text" id="to_do_due_date" name="to_do[due_date]" value="<%= @to_do.due_date %>">
+		<input type="submit">
+</form>

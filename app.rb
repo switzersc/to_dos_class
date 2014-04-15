@@ -1,4 +1,7 @@
 require 'sinatra'
+require "sinatra/activerecord"
+
+set :database, "sqlite3:///to_do_class_app.db"
 
 get "/error" do
 	"Error"
@@ -9,36 +12,44 @@ get "/Error" do
 end
 
 get "/to_dos" do
-	@to_dos = ToDo.to_dos
+	@to_dos = ToDo.all
 	erb :"to_dos/index"
 end
 
+get "/to_dos/new" do
+	@new_to_do = ToDo.new
+	erb :"to_dos/new"
+end
+
 post "/to_dos" do
-	text = params[:description]
-	if ToDo.add_to_do(text)
-		redirect "/to_dos"
+	@to_do = ToDo.new(params[:to_do])
+	if @to_do.save
+		redirect "/to_dos/#{@to_do.id}"
 	else
 		redirect "/Error"
 	end
 end
 
-class ToDo
-	@@to_dos = ["Feed dog", "Do laundry"]
-
-	def initialize
+put "/to_dos/:id" do
+	@to_do = ToDo.find(params[:id])
+	if @to_do.update_attributes(params[:to_do])
+		redirect "/to_dos/#{@to_do.id}"
+	else
+		redirect "/Error"
 	end
+end
 
-	def self.to_dos
-		@@to_dos
-	end
+get "/to_dos/:id/edit" do
+	@to_do = ToDo.find(params[:id])
+	erb :"to_dos/edit"
+end
 
-	def self.add_to_do(to_do)
-		if to_do == "Cry"
-			return false
-		else
-			@@to_dos.push(to_do)
-			# @@to_dos << to_do
-		end
-	end
+get "/to_dos/:id" do
+	@to_do = ToDo.find(params[:id])
+	erb :"to_dos/show"
+end
+
+
+class ToDo < ActiveRecord::Base
 
 end

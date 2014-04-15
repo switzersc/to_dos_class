@@ -1,0 +1,5 @@
+<form action="/to_dos" method="post">
+		<input type="text" id="to_do_description" name="to_do[description]" value="<%= @new_to_do.description %>">
+		<input type="text" id="to_do_due_date" name="to_do[due_date]" value="<%= @new_to_do.due_date %>">
+		<input type="submit">
+	</form>
